@@ -5,5 +5,11 @@
 
     
       <!-- -*- extra stuff goes here -*- -->
+       <permission
+          id="appeus.content.AddApp"
+	  title="appeus.content: Add App"
+	  />       
+
+
 
 </configure>
