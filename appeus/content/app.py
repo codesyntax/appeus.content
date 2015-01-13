@@ -246,3 +246,9 @@ class ItunesImport(grok.View):
         messages = IStatusMessage(self.request)
         messages.add(_(u"Information imported from Itunes"), type=u"info")
         return self.request.response.redirect(self.context.absolute_url())
+
+
+class FacetedPreviewItemApp(grok.View):
+    grok.context(IApp)
+    grok.name('faceted-preview-item')
+    grok.require('zope2.View')
