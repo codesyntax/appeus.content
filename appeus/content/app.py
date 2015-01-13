@@ -148,9 +148,21 @@ class GooglePlayImport(grok.View):
         osversion = soup.find('div', itemprop='operatingSystems').text.strip()
         images = soup.find_all('img', {'class': 'screenshot'})
 
-        self.context.title = title
-        self.context.description = desc
-        self.context.author = author
+        if self.context.title:
+            self.context.title += title
+        else:
+            self.context.title = title
+
+        if self.context.description:
+            self.context.description += desc
+        else:
+            self.context.description = desc
+
+        if self.context.author:
+            self.context.author += author
+        else:
+            self.context.author = author
+
         self.context.android_version_number = version
         self.context.android_min_version = osversion
         for image in images:
@@ -179,6 +191,54 @@ class ItunesImport(grok.View):
     grok.name('itunesimport')
 
     def render(self):
+        sock = requests.get(self.context.ios_itunes_url)
+        soup = BeautifulSoup(sock.text)
+        title = soup.find('h1').text.strip()
+        desc = soup.find('div', {'class': 'product-review'}).text.strip()
+        author = soup.find('h2').text.strip()
+        try:
+            version = soup.find('ul', {'class': 'list'}).find_all('li')[3].text.strip()
+        except:
+            pass
+        osversion = soup.find('div', {'id': 'left-stack'}).find('p').text.strip()
+        images = soup.find('div', {'class': 'screenshots'}).find_all('img')
+
+        if self.context.title:
+            self.context.title += title
+        else:
+            self.context.title = title
+
+        if self.context.description:
+            self.context.description += desc
+        else:
+            self.context.description = desc
+
+        if self.context.author:
+            self.context.author += author
+        else:
+            self.context.author = author
+
+        self.context.ios_version_number = version
+        self.context.ios_min_version = osversion
+        for image in images:
+            imageurl = image.get('src')
+            filename = unicode(imageurl.split('/')[-1], 'utf-8')
+            sock = urllib2.urlopen(imageurl)
+            imgdata = sock.read()
+            try:
+                imgobject = imgdata
+                self.context.image = NamedBlobImage_file(imgobject,
+                    contentType=sock.headers['content-type'],
+                    filename=filename)
+                break
+            except:
+                pass
+            sock.close()
+
+        messages = IStatusMessage(self.request)
+        messages.add(_(u"Information imported from Google Play"), type=u"info")
+        return self.request.response.redirect(self.context.absolute_url())
+
 
         messages = IStatusMessage(self.request)
         messages.add(_(u"Information imported from Itunes"), type=u"info")
