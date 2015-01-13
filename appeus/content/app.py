@@ -38,6 +38,7 @@ class IApp(form.Schema, IImageScaleTraversable):
     android_availability = schema.Bool(
         title=_(u"Android availability"),
         required=False,
+        default=False,
     )
 
     android_googleplay_url = schema.TextLine(
@@ -58,6 +59,7 @@ class IApp(form.Schema, IImageScaleTraversable):
     ios_availability = schema.Bool(
         title=_(u"IOS availability"),
         required=False,
+        default=False,
     )
 
     ios_itunes_url = schema.TextLine(
@@ -149,17 +151,17 @@ class GooglePlayImport(grok.View):
         images = soup.find_all('img', {'class': 'screenshot'})
 
         if self.context.title:
-            self.context.title += title
+            self.context.title = self.context.title + ' ' + title
         else:
             self.context.title = title
 
         if self.context.description:
-            self.context.description += desc
+            self.context.description = self.context.description + ' ' + desc
         else:
             self.context.description = desc
 
         if self.context.author:
-            self.context.author += author
+            self.context.author = self.context.author + ' ' + author
         else:
             self.context.author = author
 
@@ -198,27 +200,28 @@ class ItunesImport(grok.View):
         author = soup.find('h2').text.strip()
         try:
             version = soup.find('ul', {'class': 'list'}).find_all('li')[3].text.strip()
+            self.context.ios_version_number = version
         except:
             pass
         osversion = soup.find('div', {'id': 'left-stack'}).find('p').text.strip()
         images = soup.find('div', {'class': 'screenshots'}).find_all('img')
 
         if self.context.title:
-            self.context.title += title
+            self.context.title = self.context.title + ' ' + title
         else:
             self.context.title = title
 
         if self.context.description:
-            self.context.description += desc
+            self.context.description = self.context.description + ' ' + desc
         else:
             self.context.description = desc
 
         if self.context.author:
-            self.context.author += author
+            self.context.author = self.context.author + ' ' + author
         else:
             self.context.author = author
 
-        self.context.ios_version_number = version
+
         self.context.ios_min_version = osversion
         for image in images:
             imageurl = image.get('src')
