@@ -29,6 +29,8 @@ setup(name='appeus.content',
           'five.grok',
           'plone.app.dexterity [grok, relations]',
           'plone.namedfile [blobs]',
+          'requests',
+          'beautifulsoup4'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
