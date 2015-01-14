@@ -11,7 +11,6 @@ class WhoVocabulary(object):
     def __call__(self, context):
         terms = []
         terms.append(SimpleVocabulary.createTerm('haur', 'haur', _('Haur')))
-        terms.append(SimpleVocabulary.createTerm('gazte', 'gazte', _('Gazte')))
         terms.append(SimpleVocabulary.createTerm('nagusi', 'nagusi', _('Nagusi')))
 
         return SimpleVocabulary(terms)
@@ -43,3 +42,16 @@ class LanguageVocabulary(object):
         return SimpleVocabulary(terms)
 
 grok.global_utility(LanguageVocabulary, name=u"appeus.content.language")
+
+
+class DevicesVocabulary(object):
+    grok.implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        terms = []
+        terms.append(SimpleVocabulary.createTerm('phone', 'phone', _('Phone')))
+        terms.append(SimpleVocabulary.createTerm('tablet', 'tablet', _('Tablet')))
+
+        return SimpleVocabulary(terms)
+
+grok.global_utility(DevicesVocabulary, name=u"appeus.content.devices")

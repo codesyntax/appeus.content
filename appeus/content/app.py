@@ -33,6 +33,18 @@ class IApp(form.Schema, IImageScaleTraversable):
             required=True,
         ),
         required=True,
+        default=['haur', 'nagusi'],
+    )
+
+    form.widget(devices=CheckBoxFieldWidget)
+    devices = schema.List(
+        title=_(u"Devices"),
+        value_type=schema.Choice(
+            vocabulary='appeus.content.devices',
+            required=True,
+        ),
+        required=True,
+        default=['phone', 'tablet'],
     )
 
     android_availability = schema.Bool(
@@ -56,6 +68,11 @@ class IApp(form.Schema, IImageScaleTraversable):
         required=False,
     )
 
+    android_price = schema.TextLine(
+        title=_(u"Price for Android version"),
+        required=False,
+    )
+
     ios_availability = schema.Bool(
         title=_(u"IOS availability"),
         required=False,
@@ -74,6 +91,11 @@ class IApp(form.Schema, IImageScaleTraversable):
 
     ios_min_version = schema.TextLine(
         title=_(u"Min version for IOS"),
+        required=False,
+    )
+
+    ios_price = schema.TextLine(
+        title=_(u"Price for IOS version"),
         required=False,
     )
 
