@@ -171,6 +171,9 @@ class GooglePlayImport(grok.View):
         version = soup.find('div', itemprop='softwareVersion').text.strip()
         osversion = soup.find('div', itemprop='operatingSystems').text.strip()
         images = soup.find_all('img', {'class': 'screenshot'})
+        price = soup.find(itemprop='price')
+        if price:
+            self.context.android_price = price.get('content')
 
         if self.context.title:
             self.context.title = self.context.title + ' ' + title
