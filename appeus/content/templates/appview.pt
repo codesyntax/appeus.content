@@ -51,75 +51,76 @@
 
   <dl>
     <tal:android tal:condition="context/android_availability">
-    <dt>
+    <dt i18n:translate="">
       Android
     </dt>
     <dd>
-      <a href="" tal:attributes="href context/android_googleplay_url">
+      <a href="" tal:attributes="href context/android_googleplay_url"
+        i18n:translate="">
         Google Play
       </a>
     </dd>
-    <dt>
-      Price Android
+    <dt i18n:translate="">
+      Price for Android version
     </dt>
     <dd tal:content="context/android_price|string:Free">
 
     </dd>
-    <dt>
-      App version
+    <dt i18n:translate="">
+      App version number for Android
     </dt>
     <dd tal:content="context/android_version_number">
 
     </dd>
-    <dt>
-      Android version
+    <dt i18n:translate="">
+      Min version for Android
     </dt>
     <dd tal:content="context/android_min_version">
 
     </dd>
     </tal:android>
     <tal:ios condition="context/ios_availability">
-    <dt>
+    <dt i18n:translate="">
       IOS
     </dt>
     <dd>
-      <a href="" tal:attributes="href context/ios_itunes_url">
+      <a href="" tal:attributes="href context/ios_itunes_url" i18n:translate="">
         Itunes
       </a>
     </dd>
-    <dt>
-      Price IOS
+    <dt i18n:translate="">
+      Price for IOS version
     </dt>
     <dd tal:content="context/ios_price|string:Free">
 
     </dd>
-    <dt>
-      App version
+    <dt i18n:translate="">
+      App version number for IOS
     </dt>
     <dd tal:content="context/ios_version_number">
 
     </dd>
-    <dt>
-      IOS version
+    <dt i18n:translate="">
+      Min version for IOS
     </dt>
     <dd tal:content="context/ios_min_version">
 
     </dd>
     </tal:ios>
-    <dt>
+    <dt i18n:translate="">
       Language
     </dt>
     <dd tal:content="context/language">
 
     </dd>
-    <dt>
+    <dt i18n:translate="">
       Author
     </dt>
     <dd tal:content="context/author">
 
     </dd>
 
-    <dt >
+    <dt i18n:domain="plone" i18n:translate="">
       Tags
     </dt>
     <dd>
