@@ -119,6 +119,16 @@
 
     </dd>
 
+    <dt >
+      Tags
+    </dt>
+    <dd>
+
+        <span tal:repeat="tag context/Subject" tal:content="tag" />
+
+    </dd>
+
+
 
   </dl>
 

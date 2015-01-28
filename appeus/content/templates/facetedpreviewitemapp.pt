@@ -1,3 +1,4 @@
+<div class="col-md-4">
 <div class="app"
   tal:define="portal_type context/portal_type;
               ploneview context/@@plone;
@@ -26,8 +27,9 @@
 
 
                   <img tal:define="scales context/@@images;
-                                                    thumbnail python: scales.scale('image', 'preview');"
+                                                    thumbnail python: scales.scale('image', width=210, height=210, direction='down');"
                                         tal:condition="nocall:thumbnail"
+                                        class="img-responsive"
                                         tal:replace="structure thumbnail/tag" />
 
               </a tal:attributes="href view_url;
@@ -37,8 +39,9 @@
               </h3>
     </div>
 
-  <p tal:content="python:ploneview.cropText(context.Description(), 100)">Description</p>
+  <p tal:content="python:ploneview.cropText(context.Description(), 150)">Description</p>
 
 
   </tal:define>
+</div>
 </div>
