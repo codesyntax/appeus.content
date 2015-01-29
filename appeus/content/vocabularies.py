@@ -1,3 +1,4 @@
+from plone import api
 from five import grok
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
@@ -55,3 +56,21 @@ class DevicesVocabulary(object):
         return SimpleVocabulary(terms)
 
 grok.global_utility(DevicesVocabulary, name=u"appeus.content.devices")
+
+
+class AppVocabulary(object):
+    grok.implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        terms = []
+        catalog = api.portal.get_tool('portal_catalog')
+        apps = catalog(portal_type='App')
+        for app in apps:
+            term = SimpleVocabulary.createTerm(app.UID, app.UID, app.Title)
+            terms.append(term)
+
+        terms.sort(lambda x, y: cmp(x.title.lower(), y.title.lower()))
+
+        return SimpleVocabulary(terms)
+
+grok.global_utility(AppVocabulary, name=u"appeus.content.apps")
