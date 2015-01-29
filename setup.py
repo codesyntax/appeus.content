@@ -30,7 +30,8 @@ setup(name='appeus.content',
           'plone.app.dexterity [grok, relations]',
           'plone.namedfile [blobs]',
           'requests',
-          'beautifulsoup4'
+          'beautifulsoup4',
+          'plone.api',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
