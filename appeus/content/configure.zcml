@@ -29,5 +29,7 @@
       />
 
   <!-- -*- extra stuff goes here -*- -->
+  <adapter name="ios_availability" factory=".indexers.ios_availability" />
+  <adapter name="android_availability" factory=".indexers.android_availability" />
 
 </configure>
