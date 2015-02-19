@@ -16,8 +16,6 @@
   <metal:content-core define-macro="main">
 
   <div class="row">
-
-
     <div class="col-md-8 col-sm-8">
 
       <div id="viewlet-above-content-title" tal:content="structure provider:plone.abovecontenttitle" tal:condition="not:ajax_load" />
@@ -49,64 +47,74 @@
          </metal:text>
       </div>
 
-  <dl>
-    <tal:android tal:condition="context/android_availability">
-    <dt i18n:translate="">
-      Android
-    </dt>
-    <dd>
-      <a href="" tal:attributes="href context/android_googleplay_url"
-        i18n:translate="">
-        Google Play
-      </a>
-    </dd>
-    <dt i18n:translate="">
-      Price for Android version
-    </dt>
-    <dd tal:content="context/android_price|string:Free">
+  <div class="row">
+    <div class="col-md-6 col-sm-6">
+      <dl tal:condition="context/android_availability" id="android">
+        <dt i18n:translate="">
+          Android
+        </dt>
+        <dd>
+          <a href="" tal:attributes="href context/android_googleplay_url"
+            i18n:translate="">
+            Google Play
+          </a>
+        </dd>
+        <dt i18n:translate="">
+          Price for Android version
+        </dt>
+        <dd tal:content="python:context.android_price and context.android_price.strip() or 'Free'">
 
-    </dd>
-    <dt i18n:translate="">
-      App version number for Android
-    </dt>
-    <dd tal:content="context/android_version_number">
+        </dd>
+        <dt i18n:translate="">
+          App version number for Android
+        </dt>
+        <dd tal:content="context/android_version_number">
 
-    </dd>
-    <dt i18n:translate="">
-      Min version for Android
-    </dt>
-    <dd tal:content="context/android_min_version">
+        </dd>
+        <dt i18n:translate="">
+          Min version for Android
+        </dt>
+        <dd tal:content="context/android_min_version">
 
-    </dd>
-    </tal:android>
-    <tal:ios condition="context/ios_availability">
-    <dt i18n:translate="">
-      IOS
-    </dt>
-    <dd>
-      <a href="" tal:attributes="href context/ios_itunes_url" i18n:translate="">
-        Itunes
-      </a>
-    </dd>
-    <dt i18n:translate="">
-      Price for IOS version
-    </dt>
-    <dd tal:content="context/ios_price|string:Free">
+        </dd>
 
-    </dd>
-    <dt i18n:translate="">
-      App version number for IOS
-    </dt>
-    <dd tal:content="context/ios_version_number">
+    </dl>
+  </div>
+  <div class="col-md-6 col-sm-6">
 
-    </dd>
-    <dt i18n:translate="">
-      Min version for IOS
-    </dt>
-    <dd tal:content="context/ios_min_version">
+    <dl tal:condition="context/ios_availability" id="ios">
+      <dt i18n:translate="">
+        IOS
+      </dt>
+      <dd>
+        <a href="" tal:attributes="href context/ios_itunes_url" i18n:translate="">
+          Itunes
+        </a>
+      </dd>
+      <dt i18n:translate="">
+        Price for IOS version
+      </dt>
+      <dd tal:content="python:context.ios_price and context.ios_price.strip() or 'Free'">
 
-    </dd>
-    </tal:ios>
+      </dd>
+      <dt i18n:translate="">
+        App version number for IOS
+      </dt>
+      <dd tal:content="context/ios_version_number">
+
+      </dd>
+      <dt i18n:translate="">
+        Min version for IOS
+      </dt>
+      <dd tal:content="context/ios_min_version">
+
+      </dd>
+
+  </dl>
+  </div>
+</div>
+
+<dl id="details">
     <dt i18n:translate="">
       Language
     </dt>
@@ -133,7 +141,6 @@
 
   </dl>
 
-
       <div id="viewlet-below-content-body" tal:content="structure provider:plone.belowcontentbody" tal:condition="not:ajax_load" />
 
 
@@ -143,12 +150,16 @@
     <div class="col-md-4 col-sm-4">
 
     <img tal:define="scales context/@@images;
-                     thumbnail python: scales.scale('image', width=400, height=400);"
+                     thumbnail python: scales.scale('image', width=600, height=600);"
          tal:condition="thumbnail"
          class="img-responsive"
          tal:attributes="src thumbnail/url;
                          width thumbnail/width;
                          height thumbnail/height" />
+
+
+
+
 
     </div>
 
